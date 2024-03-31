@@ -31,7 +31,12 @@ def get_room_data_by_date(date):
     """, (date,))
     room_data_str = cursor.fetchone()
     conn.close()
-    return eval(room_data_str[0]) if room_data_str else None
+    room_data = eval(room_data_str[0]) if room_data_str else None
+    if room_data:
+        sorted_room_data = sorted(room_data.items(), key=lambda x: int(x[0].split('_')[1]), reverse=True)
+        sorted_room_dict = {floor: lights for floor, lights in sorted_room_data}
+        return sorted_room_dict
+    return None
 
 # Функция для получения ответов на задачу по заданным датам
 def get_task_answers(date):
