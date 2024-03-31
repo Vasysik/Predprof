@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web Interface</title>
+</head>
+<body>
+    <h1>Web Interface</h1>
+    <form method="post">
+        <label for="selected_date">Выберите дату:</label>
+        <select id="selected_date" name="selected_date">
+            {% for date in available_dates %}
+            <option value="{{ date }}" {% if selected_date == date %}selected{% endif %}>{{ date }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Показать данные">
+    </form>
+    {% if room_data %}
+    <h2>Данные о комнатах и окнах:</h2>
+    <table border="1">
+        {% for floor, windows in room_data.items() %}
+        <tr>
+            <td>Этаж {{ floor }}</td>
+            {% for window in windows %}
+            <td>{{ window }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% if task_answers %}
+    <h2>Ответы на задачу:</h2>
+    <table border="1">
+        {% for answer in task_answers %}
+        <tr>
+            <td>{{ answer }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
